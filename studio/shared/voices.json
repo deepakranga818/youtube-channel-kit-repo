@@ -1,0 +1,6 @@
+{
+  "hinglish": { "voice": "en-IN-PrabhatNeural", "rate": "-4%", "asr_lang": "en", "note": "male English-India voice reading Roman Hinglish; ASR only approximate" },
+  "hi-deva":  { "voice": "hi-IN-MadhurNeural",  "rate": "-4%", "asr_lang": "hi", "note": "male Hindi voice reading Devanagari; write amounts as words in the spoken text; asr_check.py --lang hi --model small" },
+  "en":       { "voice": "en-US-GuyNeural",     "rate": "0%",  "asr_lang": "en", "note": "check the list with: python -m edge_tts --list-voices" },
+  "command": "SSL_CERT_FILE=$(python -c 'import certifi;print(certifi.where())') python $LIB/core/tts/tts_zh.py vo/lines.json vo --voice <voice> --rate <rate>"
+}

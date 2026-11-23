@@ -1,0 +1,130 @@
+# Narration chunks of the approved script (Roman Hinglish) with English subtitles. One chunk = one voice file = one subtitle cue.
+# Section keys (first letter of the id) set the longer breaths: h hook, p players, f fee, i interest, c charges, r rewards, b business, z close.
+import json, re, os
+HERE = os.path.dirname(os.path.abspath(__file__))
+L = [
+ ('h1', 'Aap credit card use karte ho.', 'You use a credit card.'),
+ ('h2a', 'Shopping karte ho, online payments karte ho, restaurants mein bill pay karte ho…', 'You shop, pay online, pay restaurant bills…'),
+ ('h2b', 'aur phir due date se pehle apna poora bill bhi pay kar dete ho.', 'and then pay your full bill before the due date.'),
+ ('h3', 'Matlab bank ko aapse interest bhi nahi mila.', "So the bank didn't even get interest from you."),
+ ('h4', 'Toh ek simple sawaal hai…', "So here's a simple question…"),
+ ('h5a', 'Agar aap bank ko interest hi nahi dete,', 'If you never pay the bank interest,'),
+ ('h5b', 'toh bank aapko credit card free mein kyun de raha hai?', 'why is the bank giving you a credit card for free?'),
+ ('h6a', 'Cashback, reward points, airport lounge access, discounts…', 'Cashback, reward points, airport lounge access, discounts…'),
+ ('h6b', 'ye sab dene ke baad bhi bank paisa kaise kamata hai?', 'after giving all this, how does the bank still make money?'),
+ ('h7', 'Kya bank loss mein hai? Bilkul nahi!', 'Is the bank making a loss? Not at all!'),
+ ('h8a', 'Actually, credit card ka business model kaafi interesting hai.', 'The credit card business model is actually quite interesting.'),
+ ('h8b', 'Aur iska sabse surprising part ye hai ki bank aapse interest liye bina bhi kama sakta hai.', 'And the most surprising part: the bank can earn even without charging you interest.'),
+ ('h9', 'Chaliye samajhte hain.', "Let's understand."),
+
+ ('p1', 'Sabse pehle ek credit card transaction ko samajhte hain.', "First, let's understand a credit card transaction."),
+ ('p2', 'Maan lijiye aapne ek store se ₹10,000 ka phone khareeda aur credit card se payment kar di.', 'Say you bought a ₹10,000 phone at a store and paid by credit card.'),
+ ('p3', 'Aapko lagta hai ki bas aapne card swipe kiya aur payment ho gayi.', 'You think you just swiped the card and the payment was done.'),
+ ('p4', 'Lekin background mein multiple players kaam kar rahe hote hain.', 'But several players are working in the background.'),
+ ('p5', 'Pehla, aapka bank — jisne aapko credit card issue kiya.', 'First, your bank, which issued you the credit card.'),
+ ('p6', 'Doosra, merchant — yaani jis shop se aapne phone khareeda.', 'Second, the merchant: the shop you bought the phone from.'),
+ ('p7a', 'Teesra, acquiring bank ya payment service provider —', 'Third, the acquiring bank or payment service provider,'),
+ ('p7b', 'jo merchant ko card payments accept karne ki facility deta hai.', 'which lets the merchant accept card payments.'),
+ ('p8a', 'Aur chautha, payment network — jaise Visa, Mastercard ya RuPay —', 'And fourth, the payment network, like Visa, Mastercard or RuPay,'),
+ ('p8b', 'jo transaction ko process karne mein help karta hai.', 'which helps process the transaction.'),
+ ('p9', 'Ab interesting part dekhiye.', 'Now see the interesting part.'),
+ ('p10a', 'Jab aap ₹10,000 ka payment karte hain,', 'When you pay ₹10,000,'),
+ ('p10b', 'toh merchant ko zaroori nahi ki poore ₹10,000 hi milen.', 'the merchant does not necessarily get the full ₹10,000.'),
+ ('p11', 'Kyun?', 'Why?'),
+ ('p12', 'Kyunki card payment accept karne ke liye merchant ko ek fee deni pad sakti hai.', 'Because the merchant may have to pay a fee to accept card payments.'),
+ ('p13', 'Isi ko generally Merchant Discount Rate, ya MDR, kaha jaata hai.', 'This is generally called the Merchant Discount Rate, or MDR.'),
+
+ ('f1', 'Ab maan lijiye ek hypothetical example mein merchant ki card payment fee 1.5% hai.', 'Now suppose, in a hypothetical example, the merchant fee is 1.5%.'),
+ ('f2', '₹10,000 ki transaction par ye fee hui ₹150.', 'On a ₹10,000 transaction, that fee is ₹150.'),
+ ('f3a', 'Toh merchant ko settlement mein ₹9,850 milenge,', 'So the merchant gets ₹9,850 in settlement,'),
+ ('f3b', 'aur ₹150 payment ecosystem ke charges mein jayenge.', 'and ₹150 goes to payment ecosystem charges.'),
+ ('f4a', 'Dhyaan rahe, ye sirf samjhane ke liye example hai.', 'Note: this is only an example to explain things.'),
+ ('f4b', 'Actual fee card type, merchant category, payment setup aur agreement ke hisaab se alag ho sakti hai.', 'The actual fee can differ by card type, merchant category, setup and agreement.'),
+ ('f5', 'Ab ye ₹150 kiske paas jaata hai?', 'Now, who gets this ₹150?'),
+ ('f6', 'Iska poora amount aapke credit card wale bank ko nahi milta.', 'The full amount does not go to your credit card bank.'),
+ ('f7a', 'Ismein acquiring bank ya payment provider ka charge hota hai,', "It includes the acquiring bank or payment provider's charge,"),
+ ('f7b', 'card network ka charge hota hai, aur ek important component hota hai Interchange Fee.', "the card network's charge, and an important part called the Interchange Fee."),
+ ('f8a', 'Ye interchange fee issuing bank ko milti hai —', 'This interchange fee goes to the issuing bank,'),
+ ('f8b', 'yaani us bank ko jisne aapko credit card diya hai.', 'the bank that gave you the credit card.'),
+ ('f9', 'Toh sochiye…', 'So think about it…'),
+ ('f10', 'Aapne ₹10,000 spend kiye. Aapne apna poora bill time par pay kar diya. Aapne bank ko interest nahi diya.', 'You spent ₹10,000. You paid the full bill on time. You paid the bank no interest.'),
+ ('f11', 'Lekin transaction ke through issuing bank ko merchant-side income ka ek hissa mil sakta hai.', 'But the issuing bank can get a share of merchant-side income from the transaction.'),
+ ('f12', 'Yahi pehla bada reason hai ki bank aapke timely payment karne ke bawajood paisa kama sakta hai.', 'This is the first big reason the bank can earn even when you pay on time.'),
+ ('f13', 'Aur isi wajah se banks chahte hain ki aap unka card zyada use karein.', 'And that is why banks want you to use their card more.'),
+
+ ('i1', 'Ab aate hain credit card ki doosri earning par.', "Now to the credit card's second earning."),
+ ('i2', 'Ye hai interest ya finance charges.', 'That is interest, or finance charges.'),
+ ('i3', 'Jab aap credit card se purchase karte hain, toh bank aapko ek limited period ke liye credit deta hai.', 'When you buy with a credit card, the bank gives you credit for a limited period.'),
+ ('i4', 'Aap purchase aaj karte hain, lekin payment baad mein kar sakte hain.', 'You buy today, but you can pay later.'),
+ ('i5a', 'Agar aap apne statement ka total amount due date tak pay kar dete hain,', "If you pay your statement's total amount by the due date,"),
+ ('i5b', 'toh eligible purchases par interest-free period ka benefit mil sakta hai.', 'you may get an interest-free period on eligible purchases.'),
+ ('i6a', 'Lekin agar aap sirf minimum amount due pay karte hain', 'But if you pay only the minimum amount due'),
+ ('i6b', 'aur baaki bill outstanding chhod dete hain, toh situation badal jaati hai.', 'and leave the rest outstanding, things change.'),
+ ('i7', 'Bacha hua amount interest attract kar sakta hai.', 'The remaining amount can attract interest.'),
+ ('i8', 'Aur agar aap regularly outstanding balance carry forward karte hain, toh interest ka burden kaafi badh sakta hai.', 'And if you regularly carry a balance forward, the interest burden can grow a lot.'),
+ ('i9', 'Isliye minimum amount due ko full payment mat samajhiye.', 'So do not mistake the minimum amount due for full payment.'),
+ ('i10', 'Minimum due pay karna aur total bill clear karna — dono alag cheezein hain.', 'Paying the minimum due and clearing the total bill are two different things.'),
+ ('i11', 'Bank ke liye revolving credit par interest ek important earning source ho sakta hai.', 'For the bank, interest on revolving credit can be an important source of earnings.'),
+
+ ('c1', 'Credit card se bank ko doosre tareekon se bhi income ho sakti hai.', 'The bank can also earn from a credit card in other ways.'),
+ ('c2a', 'Jaise joining fee, annual membership fee, cash withdrawal fee,', 'Like joining fee, annual membership fee, cash withdrawal fee,'),
+ ('c2b', 'foreign currency transaction markup, aur kuch specific services ke charges.', 'foreign currency markup, and charges for some specific services.'),
+ ('c3', 'Har credit card par ye sab charges zaroori nahi hote.', 'Not every credit card has all of these charges.'),
+ ('c4a', 'Kuch cards lifetime free hote hain, kuch annual fee charge karte hain,', 'Some cards are lifetime free, some charge an annual fee,'),
+ ('c4b', 'aur kuch cards mein spending target complete karne par annual fee waive bhi ho sakti hai.', 'and on some the annual fee can be waived once you meet a spending target.'),
+ ('c5', 'Lekin ek baat yaad rakhiye:', 'But remember one thing:'),
+ ('c6a', 'Credit card se ATM par cash nikalna normal shopping transaction jaisa nahi hota.', "Taking cash from an ATM with a credit card isn't like a normal purchase."),
+ ('c6b', 'Is par cash advance fee aur interest jaise charges lag sakte hain.', 'A cash advance fee and interest can apply.'),
+ ('c7a', 'Isliye credit card ke benefits dekhne ke saath-saath', 'So along with the benefits,'),
+ ('c7b', 'uske Most Important Terms and Conditions, yaani MITC, bhi check karne chahiye.', 'check the Most Important Terms and Conditions, or MITC.'),
+
+ ('r1', 'Ab sabse interesting question.', 'Now the most interesting question.'),
+ ('r2', 'Agar bank aapse interest nahi le raha, phir bhi cashback aur reward points kyun de raha hai?', "If the bank isn't taking interest from you, why still give cashback and reward points?"),
+ ('r3', 'Kyunki bank chahta hai ki aap uska card use karte rahein.', 'Because the bank wants you to keep using its card.'),
+ ('r4', 'Jitni zyada eligible transactions hongi, utna zyada merchant-side revenue generate hone ka opportunity ho sakta hai.', 'The more eligible transactions, the more merchant-side revenue it can generate.'),
+ ('r5', 'Iske alawa kuch rewards merchant partnerships, co-branded offers ya promotional arrangements se bhi support ho sakte hain.', 'Some rewards are also supported by merchant partnerships, co-branded or promotional offers.'),
+ ('r6', 'Matlab cashback koi magic nahi hai.', "So cashback isn't magic."),
+ ('r7', 'Ye credit card ke overall business model ka ek hissa hai.', "It is part of the credit card's overall business model."),
+ ('r8', 'Bank customer ko rewards deta hai, taaki customer card ko prefer kare, zyada transactions kare aur long-term customer bana rahe.', 'Rewards make you prefer the card, transact more and stay a long-term customer.'),
+ ('r9', 'Lekin har reward free money nahi hota.', 'But not every reward is free money.'),
+ ('r10a', 'Kuch cards mein rewards ke badle annual fee hoti hai. Kuch mein redemption restrictions hoti hain.', 'Some cards charge an annual fee for rewards. Some have redemption limits.'),
+ ('r10b', 'Aur kuch benefits ke liye minimum spending condition bhi hoti hai.', 'And some benefits need a minimum spend.'),
+ ('r11', 'Isliye rewards dekhkar card choose karne se pehle uski total cost samajhna zaroori hai.', "So before choosing a card for its rewards, understand its total cost."),
+
+ ('b1', 'Ab ek important clarification.', 'Now an important clarification.'),
+ ('b2', 'Iska matlab ye nahi ki bank har credit card transaction par guaranteed profit kamata hai.', 'It does not mean the bank makes a guaranteed profit on every transaction.'),
+ ('b3a', 'Bank ko rewards, fraud prevention, payment processing, customer support,', 'The bank also spends on rewards, fraud prevention, payment processing, support,'),
+ ('b3b', 'technology, customer acquisition aur unpaid dues ke risk par bhi paisa kharch karna padta hai.', 'technology, customer acquisition and the risk of unpaid dues.'),
+ ('b4a', 'Kuch customers bank ke liye profitable ho sakte hain, kuch kam profitable,', 'Some customers can be profitable for the bank, some less so,'),
+ ('b4b', 'aur kuch transactions mein cost bhi revenue se zyada ho sakti hai.', 'and in some transactions the cost can even exceed the revenue.'),
+ ('b5', 'Lekin overall business model multiple income sources par based hota hai:', 'But the overall business model rests on multiple income sources:'),
+ ('b6', 'Merchant-side transaction income, interest, applicable fees aur partnerships.', 'Merchant-side transaction income, interest, applicable fees and partnerships.'),
+ ('b7', 'Yahi combination credit card business ko profitable bana sakta hai.', 'This combination can make the credit card business profitable.'),
+
+ ('z1', 'Toh agli baar jab aap apne credit card ka poora bill time par pay karein,', 'So next time you pay your full credit card bill on time,'),
+ ('z1b', 'toh ye mat sochiye ki bank ne aapke transaction se kuch nahi kamaya.', "don't think the bank earned nothing from your transaction."),
+ ('z2', 'Bank ko aapse interest nahi mila hoga, lekin merchant-side transaction fee se usse income mil sakti hai.', 'The bank got no interest from you, but can earn from the merchant-side fee.'),
+ ('z3', 'Aur isi liye credit card companies aapko cashback, rewards aur discounts dekar card use karne ke liye encourage karti hain.', 'That is why card companies encourage you to use the card with cashback and rewards.'),
+ ('z4', 'Bas teen rules yaad rakhiye:', 'Just remember three rules:'),
+ ('z5', 'Pehla — hamesha total amount due time par pay karein.', 'First, always pay the total amount due on time.'),
+ ('z6', 'Doosra — sirf minimum due pay karke khush mat ho jaiye.', "Second, don't be content with paying only the minimum due."),
+ ('z7a', 'Aur teesra — credit card ko extra income mat samajhiye.', "And third, don't treat a credit card as extra income."),
+ ('z7b', 'Use ek payment tool ki tarah samajhkar responsibly use kariye.', 'Use it responsibly, as a payment tool.'),
+ ('z8a', 'Aapko kya lagta hai — credit card cashback sach mein benefit hai,', 'What do you think: is credit card cashback a real benefit,'),
+ ('z8b', 'ya banks ki ek smart business strategy?', "or a bank's smart business strategy?"),
+ ('z9', 'Comments mein zaroor batayein.', 'Do tell us in the comments.'),
+ ('z10', 'Aur aise hi complicated topics ko simple language mein samajhne ke liye subscribe karein ExplainEveryday ko.', 'And to understand complicated topics simply, subscribe to ExplainEveryday.'),
+ ('z11', 'Big Questions. Simple Explanations.', 'Big Questions. Simple Explanations.'),
+]
+def say(s):
+    s = s.replace('…', ',').replace('—', ',')
+    s = re.sub(r'₹([\d,]+)', lambda m: m.group(1).replace(',', '') + ' rupees', s)
+    s = s.replace('%', ' percent').replace('MDR', 'M D R').replace('MITC', 'M I T C').replace('ATM', 'A T M')
+    s = s.replace('RuPay', 'Rupay')
+    return re.sub(r'\s+', ' ', s).replace(' ,', ',')
+if __name__ == '__main__':
+    os.makedirs(os.path.join(HERE, 'vo'), exist_ok=True)
+    out = [dict(id=i, text=h, say=say(h), en=e) for i, h, e in L]
+    json.dump(out, open(os.path.join(HERE, 'vo', 'lines.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    over = [(i, len(h), len(e)) for i, h, e in L if len(h) > 92 or len(e) > 92]
+    print(len(out), 'chunks; long:', over)

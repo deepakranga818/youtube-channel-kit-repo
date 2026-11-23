@@ -1,0 +1,18 @@
+अदृश्य ब्रह्मांड का नक्शा (Mapping the Invisible Universe), a film by ExplainEveryday.
+Every picture is drawn in code (SVG); no photos, no ESA images, no video model.
+
+Film style grammar: Scale Zoom Explainer, from the Lemo-Opuscar library (render, mix and mux tools used as tools; see that library's LICENSE for its own terms).
+
+Fonts (SIL Open Font License 1.1, self-hosted in fonts/):
+- Jost, by Owen Earl (Google Fonts, ofl/jost)
+- Noto Sans Devanagari, by Google (Google Fonts, ofl/notosansdevanagari)
+
+Narration voice: Microsoft Edge neural text-to-speech, voice hi-IN-SwaraNeural, through the edge-tts package (online service). The voice is a synthetic voice.
+Speech check only: faster-whisper (Whisper "small" model), not part of the film.
+
+Music: an original score played from free sample libraries (sampler.py):
+Samples (CC0): FreePats project (freepats.zenvoid.org), VS Chamber Orchestra: Community Edition (Versilian Studios), Versilian Community Sample Library (Versilian Studios)
+No background music. Sound effects are synthesised procedurally.
+
+Facts: see FACTS.md. The film names ESA's Euclid mission and India's GMRT (NCRA-TIFR) only in words; no logos or imagery from either are used.
+The user is responsible for the materials they use in their own films.

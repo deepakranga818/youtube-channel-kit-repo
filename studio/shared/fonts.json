@@ -1,0 +1,25 @@
+{
+  "rule": "All on-screen text is English, so films use the style's own Latin fonts. Devanagari appears only in the subtitle's Hindi line: give it its OWN font family (Deva = Poppins) and use a font stack ('500 30px Jost, Deva'); never split one family into Latin and Devanagari faces by unicode-range (Chrome drops the Latin face on some weights). Never letter-space Devanagari. Jost and Oleo Script lack the rupee sign: the stack falls back per character.",
+  "sketchnote": {
+    "latin": [
+      "Kalam Bold (headings, has the rupee sign)",
+      "Patrick Hand (notes)"
+    ],
+    "devanagari": [
+      "Kalam Bold has Devanagari; Patrick Hand does not, so use stack 'PH, KB'"
+    ]
+  },
+  "midcentury-toon": {
+    "latin": [
+      "Oleo Script Bold (kicker)",
+      "Alfa Slab One (titles)",
+      "Jost (body)"
+    ],
+    "devanagari_captions_only": [
+      "Deva = Poppins Regular/Medium/SemiBold",
+      "DevaSlab = Rozha One",
+      "DevaScript = Kalam Bold"
+    ]
+  },
+  "source": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/<family>/<file>.ttf (all SIL OFL 1.1)"
+}

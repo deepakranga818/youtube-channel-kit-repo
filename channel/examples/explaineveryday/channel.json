@@ -1,0 +1,17 @@
+{
+  "_note": "EXAMPLE: the ExplainEveryday channel's filled-in profile (Hindi explainers, boy host). Copy ideas, not values.",
+  "channel": "ExplainEveryday",
+  "tagline": "Big Questions. Simple Explanations.",
+  "niche": "everyday money, science and how-things-work explainers",
+  "languages": { "narration": "Hindi (Devanagari script for the voice, Roman Hinglish for the caption line)", "on_screen": "English", "subtitles_top": "English", "subtitles_bottom": "Devanagari" },
+  "host": { "name": "ExplainEveryDayHost", "gender": "boy", "model_sheet": "(kept outside the kit)" },
+  "voice": { "key": "hi-deva", "supplied_recordings": "sometimes (the owner recorded the credit-card film)" },
+  "video": { "w": 1920, "h": 1080, "fps": 24, "lufs": -14, "true_peak_db": -1.0 },
+  "taste_rules": [
+    "male voice (the host is a boy)",
+    "NO background music in any film; keep the sound effects (foley, whooshes, stamps, pen sounds, room tone)",
+    "ALL on-screen text is English (titles, labels, cards, lockup), even when the narration is Hindi",
+    "Hindi films: subtitles = English on top, Devanagari below (the .srt carries the same two lines)",
+    "no library sign-off in a channel film (credits go in CREDITS next to the film)"
+  ]
+}

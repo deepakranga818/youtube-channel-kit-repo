@@ -1,0 +1,8 @@
+- brand.js                    channel name, tagline, lockup text, lesson titles + icons (1 to 7 lessons), thumbnail words (a and b)
+- scenes_a.js / scenes_b.js   the pictures: one function per scene id
+- scenes.py                   which chunks belong to which scene and lesson (lessons 1..N as in brand.js; hook = 0)
+- lines_src.py                narration per chunk (Devanagari for Hindi; for another language put that language in `text`)
+- hinglish_src.py             Roman caption line + English line per chunk (the English line is the big caption; it is also what align.py matches a recording against)
+- thumb.js                    thumbnail layout (words come from brand.js; edit only if the composition changes)
+- tools/parts.json            only when you supply a recording: which chunk ids each Voice Script/partN file covers
+- FACTS.md, CREDITS           claims table (copy example/FACTS.md) and credits (fill the placeholders)

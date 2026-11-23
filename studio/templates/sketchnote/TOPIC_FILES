@@ -1,0 +1,3 @@
+- page.js        the drawing: one block per script section, notes timed with T('chunk-id')
+- lines_src.py  the script: chunks (id, text, English), voice via build.sh
+- FACTS.md      claims table (copy from example/FACTS.md)

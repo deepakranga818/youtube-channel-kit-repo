@@ -1,0 +1,2 @@
+# Roman-Hinglish caption line per chunk: (id, hinglish, english). Used as the big caption line. Worked example: example/hinglish_src.py
+L = [('h1', 'Hello!', 'Hello!'), ('h2', 'Aaj ek sawaal.', 'Today, one question.'), ('p1', 'Pehle ye dekhiye.', 'First, look.'), ('p2', 'Phir ye.', 'Then this.'), ('z1', 'Subscribe karein.', 'Subscribe.'), ('z2', 'Big Questions. Simple Explanations.', 'Big Questions. Simple Explanations.')]

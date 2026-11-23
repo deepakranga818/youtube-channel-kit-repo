@@ -1,0 +1,41 @@
+# THE SCENE MAP: which chunks each scene covers, its lesson (0 = hook, 1-7 = numbered lessons), and its ground colour key (palette key in film.js).
+# Order matters. The film adds a silent 'lockup' scene and an 'end' iris after the last one (timeline.py).
+SCENES = [
+ # id        first   last   lesson ground
+ ('hook1',   'h1',   'h3',  0, 'mustard'),
+ ('hook2',   'h4',   'h6b', 0, 'mustard'),
+ ('hook3',   'h7',   'h9',  0, 'mustard'),
+ ('pl1',     'p1',   'p4',  1, 'blue'),
+ ('pl2',     'p5',   'p6',  1, 'blue'),
+ ('pl3',     'p7a',  'p8b', 1, 'blue'),
+ ('pl4',     'p9',   'p10b', 1, 'blue'),
+ ('pl5',     'p11',  'p13', 1, 'blue'),
+ ('fee1',    'f1',   'f3b', 2, 'coral'),
+ ('fee2',    'f4a',  'f4b', 2, 'coral'),
+ ('fee3a',   'f5',   'f6',  2, 'coral'),
+ ('fee3b',   'f7a',  'f8b', 2, 'coral'),
+ ('fee4a',   'f9',   'f10', 2, 'coral'),
+ ('fee4b',   'f11',  'f13', 2, 'coral'),
+ ('int1',    'i1',   'i4',  3, 'avocado'),
+ ('int2',    'i5a',  'i5b', 3, 'avocado'),
+ ('int3',    'i6a',  'i8',  3, 'avocado'),
+ ('int4',    'i9',   'i11', 3, 'avocado'),
+ ('chg1',    'c1',   'c3',  4, 'plum'),
+ ('chg2',    'c4a',  'c4b', 4, 'plum'),
+ ('chg3',    'c5',   'c7b', 4, 'plum'),
+ ('rew1',    'r1',   'r3',  5, 'sand'),
+ ('rew2',    'r4',   'r5',  5, 'sand'),
+ ('rew3',    'r6',   'r8',  5, 'sand'),
+ ('rew4',    'r9',   'r11', 5, 'sand'),
+ ('biz1',    'b1',   'b2',  6, 'pink'),
+ ('biz2',    'b3a',  'b3b', 6, 'pink'),
+ ('biz3',    'b4a',  'b4b', 6, 'pink'),
+ ('biz4',    'b5',   'b7',  6, 'pink'),
+ ('end1a',   'z1',   'z1b', 7, 'blue'),
+ ('end1b',   'z2',   'z3',  7, 'blue'),
+ ('end2',    'z4',   'z7b', 7, 'blue'),
+ ('end3',    'z8a',  'z9',  7, 'blue'),
+ ('end4',    'z10',  'z11', 7, 'blue'),
+]
+# synthetic voice only: extra breath before a chunk (seconds): before the number lands (f2), "kyun?" (p11), the tagline (z11). A recording keeps its own pauses instead.
+EXTRA = {'f2': 1.1, 'p11': 0.2, 'z11': 0.25}

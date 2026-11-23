@@ -1,0 +1,17 @@
+{
+  "_note": "Machine-readable channel profile. The channel-setup skill fills every TODO; build scripts and skills read this. Keep it in step with channel/CHANNEL.md.",
+  "channel": "TODO channel name",
+  "tagline": "TODO",
+  "niche": "TODO",
+  "languages": { "narration": "TODO (en | hi | ...)", "on_screen": "TODO (default: English)", "subtitles_top": "TODO (default: English)", "subtitles_bottom": "TODO (default: none, or the narration language's own script)" },
+  "host": { "name": "TODO (or none)", "gender": "TODO", "model_sheet": null },
+  "voice": { "key": "TODO (a key in studio/shared/voices.json)", "supplied_recordings": "TODO yes | no | sometimes" },
+  "video": { "w": 1920, "h": 1080, "fps": 24, "lufs": -14, "true_peak_db": -1.0 },
+  "taste_rules": [
+    "TODO confirm or change each default taken from ExplainEveryday: no background music (foley only)",
+    "TODO on-screen text language",
+    "TODO subtitle languages and order",
+    "TODO no library sign-off in the film; credits go in CREDITS"
+  ],
+  "library": "~/lemo-opuscar"
+}
