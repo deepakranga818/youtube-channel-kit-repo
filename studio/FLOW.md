@@ -11,8 +11,8 @@ sh studio/new-video.sh <style> <slug>      # copies templates/<style> to videos/
 They live in `channel/CHANNEL.md` (human) and `channel/channel.json` (machine); ExplainEveryday's are in `channel/examples/explaineveryday/`. Read them before every film; never silently change one.
 
 ## Steps (same for every style)
-1. **Brief**: topic, audience, length, language (`studio/shared/voices.json` key), style, voice (synthetic or supplied recording).
-2. **Treatment + script + facts**: `TREATMENT.md` (3 structures, one chosen), approved script, `FACTS.md` (claim | basis | caveat); illustrative numbers labelled.
+1. **Brief + style choice**: topic, audience, length, language (`studio/shared/voices.json` key), voice (synthetic or supplied recording), and the style, **chosen by the topic, never by habit** (`studio/docs/STYLES.md` "Choosing the style for a topic").
+2. **Treatment + script + facts**: `TREATMENT.md` (starts with `## Style choice`, then 3 structures, one chosen), approved script, `FACTS.md` (claim | basis | caveat); illustrative numbers labelled.
 3. **Chunks**: split the script into chunks in the topic file (`lines_src.py` / `hinglish_src.py`). Section = first letter of the id.
 4. **Voice**: edge-tts via `build.sh`, or a supplied recording aligned with the ASR tools (`studio/docs/VOICE_AND_SUBTITLES.md`).
 5. **Timeline**: from the rendered voice durations (`timeline.py`), never from guesses.
@@ -23,7 +23,7 @@ They live in `channel/CHANNEL.md` (human) and `channel/channel.json` (machine); 
 10. **Thumbnail + listing**: `studio/docs/YOUTUBE.md` (two 1280x720 variants, `youtube_listing.md`, `.srt` files, pinned comment).
 11. **Deliver and learn**: `<name>.mp4`, `poster.jpg`, thumbnails, `.srt`, `youtube_listing.md`, `CREDITS`, `FACTS.md` in the project folder; append to `studio/docs/LEARNINGS.md`.
 
-## Styles available
+## Ready templates (use one only when it is the best fit for the topic)
 - `sketchnote`: one big page drawn by hand, camera moves over it (explainers; long films OK). Topic files: `page.js`, `lines_src.py`.
 - `midcentury-toon`: 1950s classroom-film cards, a host with moving hands, numbered lessons, English on screen + a second caption line in the narration language. Topic files: see its `TOPIC_FILES` (`brand.js`, `scenes_a.js`, `scenes_b.js`, `scenes.py`, `lines_src.py`, `hinglish_src.py`, `thumb.js`).
 - Reference only: `studio/references/euclid-scale-zoom/` (library style `flat-space-explainer`).

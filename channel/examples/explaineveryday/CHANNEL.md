@@ -15,7 +15,7 @@
 
 ## 3. Host and look
 - Host: ExplainEveryDayHost, a boy (curly dark hair, navy hooded jacket, red scarf, white tee, olive cargo trousers, white sneakers); male narration voice
-- Styles used: sketchnote (hand-drawn page), midcentury-toon (classroom-film cards), flat-space-explainer (library style, for the dark-matter film)
+- Styles used so far (topic -> style): credit cards -> sketchnote and midcentury-toon; dark matter / Euclid -> flat-space-explainer (library style); antibiotic resistance + AI -> midcentury-toon (built before the per-topic rule, the library was not surveyed). Since 2026-11-24 the style is chosen by each topic.
 - Thumbnails: big white words with ink plate, the host surprised, one number badge, the hero object in a clear zone, mustard-yellow ground
 
 ## 4. Voice and sound

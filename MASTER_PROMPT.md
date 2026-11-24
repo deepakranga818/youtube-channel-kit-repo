@@ -23,6 +23,7 @@ You are the producer, engineer and director of a video studio that makes narrate
 - The owner keeps standing rules and expects them applied without being reminded. They live in `channel/CHANNEL.md`; when the owner states a new standing rule ("remember this for next videos"), write it there and in your memory the same turn.
 - Windows: the Bash tool is Git Bash (use it for every `sh` script and ffmpeg); give the owner commands as PowerShell. Use the Write tool for any file over a few dozen lines (heredocs truncated before). Run renders/ASR with `run_in_background`; do not poll. Answer "is it ready?" with an honest one-line status.
 - Never rewrite an engine. A new film = copy a template, change only its topic files.
+- **Choose the style by the topic, never by habit** (owner's rule, 2026-11-24). Before the treatment, compare at least three styles for THIS topic from all pools (ready templates, the library's 99 styles, the owner's own), judge them on fit, tone, feasibility, build cost and channel variety, and write the result at the top of `TREATMENT.md` as `## Style choice`. A ready template wins only when it is the best fit, not because it is ready or was used last. Method and a topic-to-style table: `studio/docs/STYLES.md` "Choosing the style for a topic".
 
 ## Defaults carried from the ExplainEveryday channel (each is confirmed or changed in CHANNEL.md, never silently imposed)
 No background music (voice + sound effects only) · all on-screen text in one language (English) even when the narration is another · subtitles: English line on top, the narration-language script below (`subtitles_en-hindi.srt`) · a boy host, so a male voice · no library/"made with" sign-off in the film, credits go in `CREDITS` beside it · 1920x1080, 24 fps, -14 LUFS, true peak <= -1 dBTP · every number on screen comes from the approved script and `FACTS.md`; illustrative numbers are labelled.
@@ -43,9 +44,10 @@ videos/           one folder per film: videos/<slug>-<style>/  (created by new-v
 The Lemo-Opuscar library (`$LIB`, default `~/lemo-opuscar`) is NOT in the folder: it is the renderer and 99 film styles, installed by `setup.sh lib` at a pinned commit. Never copy its markdown docs into channel material (CC BY-NC).
 
 ## The pipeline in twelve lines (full text: `studio/docs/PIPELINE.md`)
-1. Brief (topic, audience, length, language, style, voice).  2. Treatment (3 structures, one chosen) + approved script + `FACTS.md`.  3. Chunks in the topic file.  4. Voice: edge-tts, or the owner's recording aligned with the ASR tools.  5. `timeline.py` from real durations.  6. Pictures in the topic files, checked with stills.  7. Events + reading-time gate.  8. `mix.py` sound, no music.  9. `sh build.sh` (render in background; about half an hour for 7-9 min).  10. QA gates (`QA_GATES.md`) + honest-delivery note.  11. Thumbnails + `youtube_listing.md` + `.srt`.  12. Deliver, then append to `studio/docs/LEARNINGS.md`.
+1. Brief + style choice (topic, audience, length, language, voice; the style is chosen by the topic, see `STYLES.md`).  2. Treatment (`## Style choice`, then 3 structures, one chosen) + approved script + `FACTS.md`.  3. Chunks in the topic file.  4. Voice: edge-tts, or the owner's recording aligned with the ASR tools.  5. `timeline.py` from real durations.  6. Pictures in the topic files, checked with stills.  7. Events + reading-time gate.  8. `mix.py` sound, no music.  9. `sh build.sh` (render in background; about half an hour for 7-9 min).  10. QA gates (`QA_GATES.md`) + honest-delivery note.  11. Thumbnails + `youtube_listing.md` + `.srt`.  12. Deliver, then append to `studio/docs/LEARNINGS.md`.
 
 ## Styles ready (`studio/docs/STYLES.md`)
+These are the engines we already have, **not a menu to default to**: pick the style per topic first (rule above), then use a ready template only if it won.
 - **sketchnote**: one big hand-drawn page, camera moves over it; long explainers. Topic files `page.js`, `lines_src.py`.
 - **midcentury-toon**: 1950s classroom-film cards, a host, numbered lessons, lockup + end card. Topic files per `TOPIC_FILES` (`brand.js`, `scenes_a/b.js`, `scenes.py`, `lines_src.py`, `hinglish_src.py`, `thumb.js`).
 - Any of the library's 99 other styles: read `$LIB/AGENTS.md`, `DIRECTOR.md`, `TECHNIQUE.md` first, write a treatment, then build; afterwards turn it into a template (`add-style` skill).
@@ -95,8 +97,8 @@ sh studio/new-video.sh <style> <slug>      # copies templates/<style> to videos/
 They live in `channel/CHANNEL.md` (human) and `channel/channel.json` (machine); ExplainEveryday's are in `channel/examples/explaineveryday/`. Read them before every film; never silently change one.
 
 ## Steps (same for every style)
-1. **Brief**: topic, audience, length, language (`studio/shared/voices.json` key), style, voice (synthetic or supplied recording).
-2. **Treatment + script + facts**: `TREATMENT.md` (3 structures, one chosen), approved script, `FACTS.md` (claim | basis | caveat); illustrative numbers labelled.
+1. **Brief + style choice**: topic, audience, length, language (`studio/shared/voices.json` key), voice (synthetic or supplied recording), and the style, **chosen by the topic, never by habit** (`studio/docs/STYLES.md` "Choosing the style for a topic").
+2. **Treatment + script + facts**: `TREATMENT.md` (starts with `## Style choice`, then 3 structures, one chosen), approved script, `FACTS.md` (claim | basis | caveat); illustrative numbers labelled.
 3. **Chunks**: split the script into chunks in the topic file (`lines_src.py` / `hinglish_src.py`). Section = first letter of the id.
 4. **Voice**: edge-tts via `build.sh`, or a supplied recording aligned with the ASR tools (`studio/docs/VOICE_AND_SUBTITLES.md`).
 5. **Timeline**: from the rendered voice durations (`timeline.py`), never from guesses.
@@ -107,7 +109,7 @@ They live in `channel/CHANNEL.md` (human) and `channel/channel.json` (machine); 
 10. **Thumbnail + listing**: `studio/docs/YOUTUBE.md` (two 1280x720 variants, `youtube_listing.md`, `.srt` files, pinned comment).
 11. **Deliver and learn**: `<name>.mp4`, `poster.jpg`, thumbnails, `.srt`, `youtube_listing.md`, `CREDITS`, `FACTS.md` in the project folder; append to `studio/docs/LEARNINGS.md`.
 
-## Styles available
+## Ready templates (use one only when it is the best fit for the topic)
 - `sketchnote`: one big page drawn by hand, camera moves over it (explainers; long films OK). Topic files: `page.js`, `lines_src.py`.
 - `midcentury-toon`: 1950s classroom-film cards, a host with moving hands, numbered lessons, English on screen + a second caption line in the narration language. Topic files: see its `TOPIC_FILES` (`brand.js`, `scenes_a.js`, `scenes_b.js`, `scenes.py`, `lines_src.py`, `hinglish_src.py`, `thumb.js`).
 - Reference only: `studio/references/euclid-scale-zoom/` (library style `flat-space-explainer`).
@@ -172,10 +174,10 @@ Commands assume the Bash tool (Git Bash on Windows), run from the channel root u
 `sh studio/tools/setup.sh` (check) -> `sh studio/tools/setup.sh lib` if the library is missing. First run in a new channel folder: the `channel-setup` skill fills `channel/CHANNEL.md` and `channel.json`.
 
 ## 1. Brief (ask the owner, one round)
-Topic, audience, length (6-10 min is the channel norm so far), narration language, style (offer the two templates; for anything else read `$LIB/AGENTS.md` "Finding the style"), voice (synthetic or the owner records). Anything already in `channel/CHANNEL.md` is not asked again.
+Topic, audience, length (6-10 min is the channel norm so far), narration language, style (**chosen by the topic, never by habit**: follow `STYLES.md` "Choosing the style for a topic", which covers the ready templates and the library's 99 styles; give your pick and the best alternative), voice (synthetic or the owner records). Anything already in `channel/CHANNEL.md` is not asked again.
 
 ## 2. Treatment, script and facts
-- `TREATMENT.md`: 3 candidate structures, the chosen one and why, logline, arc, what the picture does for each idea. Show it before building.
+- `TREATMENT.md`: starts with `## Style choice` (topic shape, three candidate styles with a pro and con each, the choice and why), then 3 candidate structures, the chosen one and why, logline, arc, what the picture does for each idea. Show it before building.
 - Script in plain language; **approved by the owner before any code**. Spell every number the way it is said.
 - `FACTS.md`: table `claim | basis | caveat` for every number and claim; label illustrative numbers as such (see CONTENT_AND_LICENCES.md). Search the web for facts that can change (rates, dates, rules) and cite the source in the table.
 - If the language is not the owner's own, the translation is yours: list it for review (`HINDI_REVIEW.md` is the model: wording choices, terms, anything an expert should check) and offer the owner a review pass.
@@ -227,8 +229,32 @@ FILE: studio/docs/STYLES.md
 
 A *style* is an engine (how things are drawn and animated) plus a stub topic. Pick one, copy it with `sh studio/new-video.sh <style> <slug>`, change only the topic files. Never rewrite an engine.
 
+## Choosing the style for a topic (do this for every film; never default)
+The style is part of the story, not a setting. **A ready template is used only when it is the best fit for this topic**, not because it is ready or was used for the last film. (Owner's rule, 2026-11-24: choose the best suitable video style for any topic.)
+
+1. **Characterise the topic**: its shape (process / how it works; money; numbers and trends; story or history; small-scale science; places and scale; machine or product; maths; this-week news; kids), the audience, the tone (health and money topics need calm and clear), the length.
+2. **Shortlist three** from all three pools: (a) the ready templates below (`sketchnote`, `midcentury-toon`, anything added later); (b) the library's 99 styles: `grep -il '<keyword>' "$LIB"/styles/*/style.json` (each `style.json` has `en`, `category_en`, `line`, `uses`), then read the `STYLE.md` of the finalists; the full list is in `$LIB/AGENTS.md` "Finding the style"; (c) the owner's own styles in `~/lemo-my-styles`.
+3. **Judge each on six points**: it fits the information shape of the script; it holds attention for the whole length; the tone suits the audience and the topic's risk; it is **feasible in code** (a style marked with the image-generator star, or one that needs real licence-clean photographs or data such as `microscope`, `satellite-briefing`, `lidar-survey`, is chosen only when we have that material); build cost (ready template = low; a new style = one full build, then `add-style`); the channel stays recognisable (host, palette, standing rules) without every film looking the same (see "Styles used so far" in `channel/CHANNEL.md`).
+4. **Write it down**: `## Style choice` at the top of the film's `TREATMENT.md`: topic shape, the three candidates with a one-line pro and con each, the choice and why, what was rejected and why. Say the choice and the best alternative in the one brief round; the owner can override. Add the topic and style to "Styles used so far" when the film is delivered.
+5. **Build**: a ready template: `sh studio/new-video.sh <style> <slug>`. A library style we have no template for: read `$LIB/AGENTS.md`, `DIRECTOR.md`, `TECHNIQUE.md`, write the treatment first, build the film, then turn it into a template (`add-style`).
+
+Starting points (not a limit; the `uses` field of `style.json` is the real index):
+| Topic shape | First candidates (ready templates marked) | Watch out |
+|---|---|---|
+| How it works, numbered rules, money or procedure | `midcentury-toon` (ready), `instruction-manual`, `assembly-line-diagram`, `sketchnote` (ready) | a numbered format forces a list structure |
+| Several linked ideas, hand-made feel, long film | `sketchnote` (ready), `whiteboard`, `stick-explainer`, `ipad-sketch`, `marker-paper` | one page: dense data and many cards read badly |
+| Numbers, trends, comparisons | `dataviz`, `spreadsheet`, `pictogram-motion`, `data-physical` | needs the real numbers in `FACTS.md` first |
+| Places, routes, space and scale | `map-explainer`, `transit-map`, `flat-space-explainer` (reference film, not a template), `satellite-briefing` | satellite and map styles need real imagery or data |
+| Small-scale science, spread, evolution, epidemics | `colored-pencil`, `pip-simulation`, `microscope` | `microscope` needs real micrographs |
+| Machines and products | `teardown`, `iso-infographic`, `blueprint`, `precise-mechanism`, `dark-keynote`, `living-screencast` | |
+| History and biography | `comic-history`, `newsreel`, `ukiyoe`, `silent-film`, `vintage-collage`, `shadow-puppet` | period looks suit only some stories |
+| This-week news | `caption-news`, `news-package`, `visual-investigation` | |
+| Maths, logic, language | `chalkboard`, `oscilloscope-math`, `text-flash-cuts`, `one-line` | |
+| Kids or a gentle tone | `crayon-book`, `crayon-world`, `watercolor`, `paper-popup` | |
+
 ## sketchnote (`templates/sketchnote/`)
 One big page drawn by hand while a camera moves over it: fineliner pen outlines, grey marker in three strengths, one yellow accent, handwriting that is written stroke by stroke. Good for explainers, long films (the credit-card film is 8:49), money/process topics.
+- **Best for:** a flowing explanation of linked ideas with a hand-made feel; long films; process and money topics without a presenter. **Not for:** many numbered steps with a presenter, dense data tables, anything that needs a host on screen.
 - Topic files: `page.js` (the drawing), `lines_src.py` (script chunks: id, spoken text, English), `FACTS.md`.
 - `page.js` is blocks `B0..Bn` laid on one sheet (`BK` = block origins, about 1700x900 each). Per chunk: one `note`/`head`/icon timed `T('id') + 0.2`. Camera keys `CK(t, x, y, zoom)` at least 0.45 s apart (closer ones are dropped; far hops whip). `PULL` = final pull-back to show all blocks. `CUE.pull`, `CUE.done`, `CUE.silence`, optional `CUE.fee` (the number that lands) are set in `buildPage`.
 - Helpers live in `parts.js`: `head note host icons ribbon box swash tick cross coinIcon slow(...)`. `slow(t0, k, fn)` stretches a drawing's stroke timing.
@@ -238,6 +264,7 @@ One big page drawn by hand while a camera moves over it: fineliner pen outlines,
 
 ## midcentury-toon (`templates/midcentury-toon/`)
 1950s classroom-film cards: flat colour grounds, off-register cel look (colour plates shifted from the ink), a boy host with moving hands whose mouth follows the voice, numbered lessons with a medallion iris, a lockup card and an iris end card, a two-line caption card (English on top, Devanagari below).
+- **Best for:** a script that falls into 3-7 numbered ideas, with a friendly presenter and a classroom tone (credit cards, UPI, a health or science explainer with sections). **Not for:** one continuous visual journey (zoom, map, timeline), data-heavy topics, or topics where a retro 1950s look would feel flippant.
 - Topic files: see `TOPIC_FILES` (`brand.js`, `scenes_a.js`, `scenes_b.js`, `scenes.py`, `lines_src.py`, `hinglish_src.py`, `thumb.js`).
 - `scenes.py`: `SCENES = [(scene_id, first_chunk, last_chunk, lesson, ground_colour)]`, 36 scenes in the worked example; lesson 0 = hook, 1..N numbered (N = `BRAND.lessons.length`, at most 7), `timeline.py` appends the silent `lockup` (lesson 8) and `end` (9). The chunks must be covered in order with no gaps (timeline.py asserts this).
 - `scenes_*.js`: one exported function per scene id, signature `(g, t, s)`; start everything on its chunk: `T('p1') + 0.2`. `s.t0/s.t1` = the scene window.
@@ -582,6 +609,12 @@ Add a dated entry after every film or every time something new was learned: what
 
 Format:  `## YYYY-MM-DD  <film or topic>`  then bullets `- what / why / fix (file)`.
 
+## 2026-11-24  style choice rule (ExplainEveryday, after the antibiotics film)
+- Miss: the antibiotics film was built in Mid-century because that template was ready; the library's 99 styles were never compared (the treatment only compared story structures inside one style). Earlier films did vary (Sketchnote, scale-zoom for dark matter).
+- Rule from the owner: choose the best-suited style for every topic. Method: `studio/docs/STYLES.md` "Choosing the style for a topic" (characterise the topic, shortlist three from ready templates + the library + the owner's styles, judge six points, write `## Style choice` in `TREATMENT.md`). Also stated in CLAUDE.md, FLOW.md, PIPELINE.md, the new-video and channel-setup skills and CHANNEL.md §3/§5.
+- The library's `styles/<slug>/style.json` (`uses`, `line`, category) is the search index; `grep -il` over it finds candidates. Feasibility check first: image-generator or real-photo/data styles are chosen only when we have that material.
+- Test of the method on the antibiotics topic: styles whose `uses` match it include `pip-simulation` (evolution and natural selection, epidemics), `colored-pencil` (hidden structures and processes) and `microscope` (needs real micrographs). The finished film stays in Mid-century.
+
 ## 2026-11-20 to 11-23  credit-cards explainer (ExplainEveryday): Sketchnote, Euclid, Mid-century
 - Built three films and extracted two templates (`sketchnote`, `midcentury-toon`); standing rules set by the owner (no music, English on screen, EN-over-Devanagari subtitles, boy host, male voice) became channel defaults.
 - Fonts: Devanagari as separate `Deva*` families in canvas font stacks; never unicode-range split; rupee sign needs a fallback (FONTS_AND_TEXT.md).
@@ -618,7 +651,8 @@ While any `TODO` remains in this file, `studio/new-video.sh` refuses to start a 
 ## 3. Host and look
 - Host character: TODO (none | the default boy host from the Mid-century template | a new design; describe age, clothes, colours, personality)
 - Host gender / voice implication: TODO
-- Styles to use: TODO (sketchnote | midcentury-toon | others from the library; 1-2 to start)
+- Style palette: TODO (the styles the channel starts with, e.g. sketchnote | midcentury-toon | library styles; a starting set only, **each film's style is chosen by its topic**, see `studio/docs/STYLES.md`)
+- Styles used so far (topic -> style, add a line after every film): none yet
 - Colour palette / fonts / brand feel: TODO
 - Thumbnail look: TODO (default: 3-5 big words, one number, the host's face, the hero object in its own zone, saturated flat ground)
 
@@ -628,6 +662,7 @@ While any `TODO` remains in this file, `studio/new-video.sh` refuses to start a 
 - Loudness: -14 LUFS, true peak <= -1 dBTP (default; change only with a reason)
 
 ## 5. Rules for every film
+- Standing: each film's style is chosen by its topic (compare at least three, write `## Style choice` in `TREATMENT.md`), never by habit or because a template is ready
 - TODO confirm: no library / "made with" sign-off in the film; credits go in `CREDITS`
 - TODO confirm: every number on screen comes from the approved script and `FACTS.md`; illustrative numbers are labelled
 - TODO confirm: confirm with the owner before uploads, posts or anything that spends credits
@@ -660,7 +695,7 @@ Goal: turn the blank profile into the channel's real profile, check the tools, a
 1. Read `channel/CHANNEL.md`, `channel/examples/explaineveryday/CHANNEL.md` (a filled example) and `studio/docs/OVERVIEW.md`.
 2. Interview the owner in at most two rounds (use AskUserQuestion when available, with a recommended option and sensible defaults from the example):
    - Round 1: niche, audience and country, narration language, on-screen language, subtitle lines, host (none / default boy host / new design), film length, cadence.
-   - Round 2: voice (synthetic voice from `studio/shared/voices.json`, or the owner records), background music yes/no (default no), styles to start with (sketchnote / midcentury-toon / ask for a library style), look and thumbnail feel, topic cautions (finance, health, legal, kids), YouTube defaults (language, category, kids, AI-content answer policy).
+   - Round 2: voice (synthetic voice from `studio/shared/voices.json`, or the owner records), background music yes/no (default no), a starting style palette (sketchnote / midcentury-toon / library styles; only a palette: every film's style is chosen by its topic, never fixed per channel), look and thumbnail feel, topic cautions (finance, health, legal, kids), YouTube defaults (language, category, kids, AI-content answer policy).
    Offer ExplainEveryday's defaults as the recommended answer for taste rules and say they come from that channel.
 3. Fill every TODO in `channel/CHANNEL.md`, and `channel/channel.json` to match. Add a voice key to `studio/shared/voices.json` if the language is new (list edge-tts voices with `python -m edge_tts --list-voices` in the library venv; pick a voice that matches the host).
 4. If the font needs differ (another script, another look): note it in CHANNEL.md and follow `studio/docs/FONTS_AND_TEXT.md` when the first film starts.
@@ -683,8 +718,8 @@ description: Make a new narrated explainer film from a topic, end to end (brief,
 
 Read first: `channel/CHANNEL.md`, `studio/FLOW.md`, `studio/docs/PIPELINE.md`, and the style's section in `studio/docs/STYLES.md`. If CHANNEL.md has TODOs: run the `channel-setup` skill.
 
-1. **Brief** (one round, only what the profile does not answer): topic, angle, length, style (recommend one with a reason), voice (synthetic or recorded).
-2. **Treatment**: write `videos/<slug>-<style>/TREATMENT.md` after `sh studio/new-video.sh <style> <slug>`: three structures, the chosen one and why, logline, arc, the picture idea for each lesson. Show it; get a yes.
+1. **Brief** (one round, only what the profile does not answer): topic, angle, length, voice (synthetic or recorded), and the **style: chosen by the topic, never by habit**. Say your pick and the best alternative with a reason so the owner can override.
+2. **Style choice + treatment**: first run the method in `studio/docs/STYLES.md` "Choosing the style for a topic" (characterise the topic; shortlist three from the ready templates, the library's 99 styles via `$LIB/styles/*/style.json`, and the owner's own styles; judge fit, attention, tone, feasibility, build cost, channel variety). Then `sh studio/new-video.sh <style> <slug>` (a library style without a template: build it, then `add-style`) and write `videos/<slug>-<style>/TREATMENT.md`: start with `## Style choice` (topic shape, three candidate styles with a pro and con, the choice and why), then three structures, the chosen one and why, logline, arc, the picture idea for each lesson. Show it; get a yes.
 3. **Script + facts**: draft the script in plain spoken language; research changeable facts on the web; write `FACTS.md` (claim | basis | caveat) and label illustrative numbers. If the narration language is not the owner's own, also write the translation review notes. **The owner approves the script before any picture is drawn.**
 4. **Chunks**: put the script into the topic files (see the project's `BRIEF.md` / `TOPIC_FILES`). Mid-century also needs `scenes.py` and `brand.js`; Sketchnote needs `page.js` blocks.
 5. **Voice**: synthetic: `VOICE=<key> sh build.sh` handles it. A supplied recording: stop and use the `align-recording` skill.
@@ -694,7 +729,7 @@ Read first: `channel/CHANNEL.md`, `studio/FLOW.md`, `studio/docs/PIPELINE.md`, a
 9. **Thumbnails + listing**: use the `youtube-package` skill.
 10. **Deliver**: list the files and where they are; ask before any upload. Append the lessons to `studio/docs/LEARNINGS.md`; if you improved an engine or tool, update the template too (not only the project copy).
 
-Rules that apply to every step: default taste rules from the profile (language on screen, subtitles, music, host); numbers as words in spoken text; outward-facing actions only after an explicit yes; delete scratch folders you made.
+Rules that apply to every step: never default to the style used last (a ready template must win the comparison); default taste rules from the profile (language on screen, subtitles, music, host); numbers as words in spoken text; outward-facing actions only after an explicit yes; delete scratch folders you made.
 
 ==================================================================
 FILE: .claude/skills/align-recording/SKILL.md

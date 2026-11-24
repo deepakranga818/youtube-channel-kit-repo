@@ -6,10 +6,10 @@ Commands assume the Bash tool (Git Bash on Windows), run from the channel root u
 `sh studio/tools/setup.sh` (check) -> `sh studio/tools/setup.sh lib` if the library is missing. First run in a new channel folder: the `channel-setup` skill fills `channel/CHANNEL.md` and `channel.json`.
 
 ## 1. Brief (ask the owner, one round)
-Topic, audience, length (6-10 min is the channel norm so far), narration language, style (offer the two templates; for anything else read `$LIB/AGENTS.md` "Finding the style"), voice (synthetic or the owner records). Anything already in `channel/CHANNEL.md` is not asked again.
+Topic, audience, length (6-10 min is the channel norm so far), narration language, style (**chosen by the topic, never by habit**: follow `STYLES.md` "Choosing the style for a topic", which covers the ready templates and the library's 99 styles; give your pick and the best alternative), voice (synthetic or the owner records). Anything already in `channel/CHANNEL.md` is not asked again.
 
 ## 2. Treatment, script and facts
-- `TREATMENT.md`: 3 candidate structures, the chosen one and why, logline, arc, what the picture does for each idea. Show it before building.
+- `TREATMENT.md`: starts with `## Style choice` (topic shape, three candidate styles with a pro and con each, the choice and why), then 3 candidate structures, the chosen one and why, logline, arc, what the picture does for each idea. Show it before building.
 - Script in plain language; **approved by the owner before any code**. Spell every number the way it is said.
 - `FACTS.md`: table `claim | basis | caveat` for every number and claim; label illustrative numbers as such (see CONTENT_AND_LICENCES.md). Search the web for facts that can change (rates, dates, rules) and cite the source in the table.
 - If the language is not the owner's own, the translation is yours: list it for review (`HINDI_REVIEW.md` is the model: wording choices, terms, anything an expert should check) and offer the owner a review pass.

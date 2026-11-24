@@ -4,6 +4,12 @@ Add a dated entry after every film or every time something new was learned: what
 
 Format:  `## YYYY-MM-DD  <film or topic>`  then bullets `- what / why / fix (file)`.
 
+## 2026-11-24  style choice rule (ExplainEveryday, after the antibiotics film)
+- Miss: the antibiotics film was built in Mid-century because that template was ready; the library's 99 styles were never compared (the treatment only compared story structures inside one style). Earlier films did vary (Sketchnote, scale-zoom for dark matter).
+- Rule from the owner: choose the best-suited style for every topic. Method: `studio/docs/STYLES.md` "Choosing the style for a topic" (characterise the topic, shortlist three from ready templates + the library + the owner's styles, judge six points, write `## Style choice` in `TREATMENT.md`). Also stated in CLAUDE.md, FLOW.md, PIPELINE.md, the new-video and channel-setup skills and CHANNEL.md §3/§5.
+- The library's `styles/<slug>/style.json` (`uses`, `line`, category) is the search index; `grep -il` over it finds candidates. Feasibility check first: image-generator or real-photo/data styles are chosen only when we have that material.
+- Test of the method on the antibiotics topic: styles whose `uses` match it include `pip-simulation` (evolution and natural selection, epidemics), `colored-pencil` (hidden structures and processes) and `microscope` (needs real micrographs). The finished film stays in Mid-century.
+
 ## 2026-11-20 to 11-23  credit-cards explainer (ExplainEveryday): Sketchnote, Euclid, Mid-century
 - Built three films and extracted two templates (`sketchnote`, `midcentury-toon`); standing rules set by the owner (no music, English on screen, EN-over-Devanagari subtitles, boy host, male voice) became channel defaults.
 - Fonts: Devanagari as separate `Deva*` families in canvas font stacks; never unicode-range split; rupee sign needs a fallback (FONTS_AND_TEXT.md).

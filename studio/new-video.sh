@@ -6,7 +6,7 @@ set -e
 HERE=$(cd "$(dirname "$0")" && pwd); ROOT=$(cd "$HERE/.." && pwd); STYLE=$1; SLUG=$2
 [ -n "$STYLE" ] && [ -n "$SLUG" ] || { echo "usage: sh studio/new-video.sh <style> <slug>"; echo "styles: $(ls "$HERE/templates" | tr '\n' ' ')"; exit 1; }
 SRC="$HERE/templates/$STYLE"; DST="$ROOT/videos/$SLUG-$STYLE"
-[ -d "$SRC" ] || { echo "no template '$STYLE'. styles: $(ls "$HERE/templates" | tr '\n' ' ')"; exit 1; }
+[ -d "$SRC" ] || { echo "no template '$STYLE'. ready templates: $(ls "$HERE/templates" | tr '\n' ' ')"; echo "Not a ready template: see studio/docs/STYLES.md 'Choosing the style for a topic' (a library style is built first, then added with the add-style skill)."; exit 1; }
 [ ! -e "$DST" ] || { echo "$DST already exists"; exit 1; }
 if grep -q 'TODO' "$ROOT/channel/CHANNEL.md" 2>/dev/null && [ -z "$FORCE" ]; then
   echo "channel/CHANNEL.md still has TODO markers: set the channel up first (open Claude Code here and say: set up this channel)."; exit 1

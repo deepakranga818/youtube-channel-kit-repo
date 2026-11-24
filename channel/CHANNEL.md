@@ -20,7 +20,8 @@ While any `TODO` remains in this file, `studio/new-video.sh` refuses to start a 
 ## 3. Host and look
 - Host character: TODO (none | the default boy host from the Mid-century template | a new design; describe age, clothes, colours, personality)
 - Host gender / voice implication: TODO
-- Styles to use: TODO (sketchnote | midcentury-toon | others from the library; 1-2 to start)
+- Style palette: TODO (the styles the channel starts with, e.g. sketchnote | midcentury-toon | library styles; a starting set only, **each film's style is chosen by its topic**, see `studio/docs/STYLES.md`)
+- Styles used so far (topic -> style, add a line after every film): none yet
 - Colour palette / fonts / brand feel: TODO
 - Thumbnail look: TODO (default: 3-5 big words, one number, the host's face, the hero object in its own zone, saturated flat ground)
 
@@ -30,6 +31,7 @@ While any `TODO` remains in this file, `studio/new-video.sh` refuses to start a 
 - Loudness: -14 LUFS, true peak <= -1 dBTP (default; change only with a reason)
 
 ## 5. Rules for every film
+- Standing: each film's style is chosen by its topic (compare at least three, write `## Style choice` in `TREATMENT.md`), never by habit or because a template is ready
 - TODO confirm: no library / "made with" sign-off in the film; credits go in `CREDITS`
 - TODO confirm: every number on screen comes from the approved script and `FACTS.md`; illustrative numbers are labelled
 - TODO confirm: confirm with the owner before uploads, posts or anything that spends credits
